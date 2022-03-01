@@ -1,25 +1,27 @@
 
-from ast import Break, While
+
 from socket import AF_INET, SOCK_STREAM
 import socket
-from threading import Thread, activeCount
 import threading
 
-
+serv = socket.gethostbyname(socket.gethostname())
+port = 9999
 sock = socket.socket(AF_INET, SOCK_STREAM)
 sock.bind(("localhost", 9999 ))
-sock.listen()
+address = (serv, port)
 
 
 
 def handler(conn, address):
+    
     
     print(f"Server is connected with" '{address}')
     conn.send(str.encode("Connected to server"))
     
     connection = True
     while connection == True:
-        inputs = conn.recv(9999).decode
+        inputs = conn.recv(9999)
+        inputs = inputs.decode
 
         if inputs == "start":
             #Spillkode
@@ -35,14 +37,20 @@ def handler(conn, address):
             conn.close()
             connection = False
             break
+        else:
+            print ("Wrong input")
 
 
 def start():
+    sock.listen()
     while True:
-        conn, address = socket.socket.accept()
+        conn, address = sock.accept()
         thread = threading.Thread(target=handler, args=(conn, address))
         thread.start()
         print(f"[ACTIVE CONNECTIONS] {threading.activeCount() - 1}")
+
+print("Server is starting")
+start()
 
 
 
