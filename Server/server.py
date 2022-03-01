@@ -5,6 +5,7 @@ import socket
 import threading
 
 serv = socket.gethostbyname(socket.gethostname())
+
 port = 9999
 sock = socket.socket(AF_INET, SOCK_STREAM)
 sock.bind(("localhost", 9999 ))
@@ -13,14 +14,12 @@ address = (serv, port)
 
 
 def handler(conn, address):
-    
-    
-    print(f"Server is connected with" '{address}')
-    conn.send(str.encode("Connected to server"))
+
+    conn.send(str.encode("Connected to server")) #Fucker denne opp??
     
     connection = True
     while connection == True:
-        inputs = conn.recv(9999)
+        inputs = conn.recv(5015)
         inputs = inputs.decode
 
         if inputs == "start":
@@ -50,6 +49,7 @@ def start():
         print(f"[ACTIVE CONNECTIONS] {threading.activeCount() - 1}")
 
 print("Server is starting")
+print(f"Server is running on {serv}")
 start()
 
 
