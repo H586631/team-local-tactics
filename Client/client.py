@@ -18,14 +18,31 @@ new_command = client.recv(1024).decode()
 
 
 def intro() : 
-    print("               Welcome to TNT ")
-    print("            You have three options: ")
-    print("1:        Type start to start the game")
-    print("2: Type disconnect to disconnect from the game")
-    print("3:    Type history to view match history")
+    print("               Welcome to TNT "           )
+    print("            You have three options: "     )
+    print("1:        Type 1 to start the game"       )
+    print("2:     Type 2 to disconnect from the game")
+    print("3:       Type 3 to view match history    ")
+    
+    
+    
+    
     answer = input().lower()
-    answer = answer.encode()
-    client.send(answer, address)
+    if answer == "1" :
+        answer = answer.encode()
+        client.send(answer)
+        print("Starting game")
+    elif answer == "2" :
+        answer = answer.encode()
+        client.send(answer)
+        print("Disconnecting from the game")
+    elif answer == "3" :
+        answer = answer.encode()
+        client.send(answer)
+        print("Printing match history")
+    else:
+        print("Unknown input")
+        intro()
 
 
 if new_command == "intro":
