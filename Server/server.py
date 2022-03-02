@@ -1,5 +1,6 @@
 
 
+from multiprocessing.connection import answer_challenge
 from socket import AF_INET, SOCK_STREAM
 import socket
 import threading
@@ -9,48 +10,62 @@ serv = socket.gethostbyname(socket.gethostname())
 port = 9999
 sock = socket.socket(AF_INET, SOCK_STREAM)
 sock.bind(("localhost", 9999 ))
-address = (serv, port)
+address = ("localhost", port)
 
 
 
-def handler(conn, address):
+def handler( conn, address):
 
-    conn.send(str.encode("Connected to server")) #Fucker denne opp??
     
+    #Send intro message
     connection = True
-    while connection == True:
-        inputs = conn.recv(5015)
-        inputs = inputs.decode
+    introsend = "intro"
+    conn.send(introsend.encode())
+    print("Intro sent")
+    print("")
 
-        if inputs == "start":
+
+
+
+    while connection == True:
+
+
+        answer = conn.recv(1024).decode()
+        
+        print(answer)
+
+        if answer == "start":
             #Spillkode
             print("blabla")
 
-        elif inputs == "history":
+        elif answer == "history":
             # Hente history fra db
             print("fetching match history")
 
-        elif inputs == "disconnect":
+        elif answer == "disconnect":
             # Dissconnect kode
-            print("Connection closing")
+            print("Connection closed with {address}")
             conn.close()
             connection = False
             break
         else:
             print ("Wrong input")
+            handler()
 
 
-def start():
+def starting():
     sock.listen()
     while True:
         conn, address = sock.accept()
         thread = threading.Thread(target=handler, args=(conn, address))
+        print("Server is connected")
         thread.start()
-        print(f"[ACTIVE CONNECTIONS] {threading.activeCount() - 1}")
+        
+        
 
 print("Server is starting")
 print(f"Server is running on {serv}")
-start()
+starting()
 
 
 

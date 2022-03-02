@@ -1,14 +1,21 @@
 
 from socket import AF_INET, SOCK_STREAM
 import socket
-import threading
 
-servip =  "102.168.1.52"
+
+servip =  "localhost"
 port = 9999
 address = (servip, port)
 
-# client = socket.socket(AF_INET, SOCK_STREAM)
-# client.connect(address)
+client = socket.socket(AF_INET, SOCK_STREAM)
+client.connect(address)
+print("Starting up")
+new_command = client.recv(1024).decode()
+
+
+
+
+
 
 def intro() : 
     print("               Welcome to TNT ")
@@ -16,11 +23,15 @@ def intro() :
     print("1:        Type start to start the game")
     print("2: Type disconnect to disconnect from the game")
     print("3:    Type history to view match history")
-    ans = input()
-    client.send(str.encode(ans))
+    answer = input().lower()
+    answer = answer.encode()
+    client.send(answer, address)
 
 
-intro()  
+if new_command == "intro":
+        intro()
+else: 
+    print("Unknown sentence")
 
 
 
