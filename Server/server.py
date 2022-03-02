@@ -1,9 +1,10 @@
 
 
-from multiprocessing.connection import answer_challenge
+
 from socket import AF_INET, SOCK_STREAM
 import socket
 import threading
+
 
 serv = socket.gethostbyname(socket.gethostname())
 
@@ -32,17 +33,20 @@ def handler( conn, address):
 
         answer = conn.recv(1024).decode()
         
-        print(answer)
 
-        if answer == "start":
+        if answer == "1":
             #Spillkode
-            print("blabla")
+            print("Starting game")
+            game()
+            break
 
-        elif answer == "history":
+        elif answer == "3":
             # Hente history fra db
             print("fetching match history")
+            hist()
+            break
 
-        elif answer == "disconnect":
+        elif answer == "2":
             # Dissconnect kode
             print("Connection closed with {address}")
             conn.close()
@@ -50,7 +54,7 @@ def handler( conn, address):
             break
         else:
             print ("Wrong input")
-            handler()
+            handler(conn, address)
 
 
 def starting():
@@ -63,10 +67,40 @@ def starting():
         
         
 
+
+
+def game ():
+    #Here i will implement the game code
+    print("Game")
+
+
+
+
+
+
+def hist():
+    #Here the retrieve history code
+    print("History")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 print("Server is starting")
 print(f"Server is running on {serv}")
 starting()
-
-
 
 
