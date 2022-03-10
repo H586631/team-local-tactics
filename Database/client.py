@@ -1,9 +1,9 @@
 
-import 
 from copyreg import pickle
 from socket import AF_INET, SOCK_STREAM
 import socket
 import pickle
+import game
 
 
 servip =  "localhost"
@@ -39,15 +39,18 @@ def intro() :
         answer = answer.encode()
         client.send(answer)
         print("Starting game")
-        game_start()
+        game.main()
+
     elif answer == "2" :
         answer = answer.encode()
         client.send(answer)
         print("Disconnecting from the game")
+
     elif answer == "3" :
         answer = answer.encode()
         client.send(answer)
         print("Printing match history")
+        
     else:
         print("Unknown input")
         intro()
@@ -55,34 +58,8 @@ def intro() :
 
 if new_command == "intro":
         intro()
-else: 
-    print("Unknown sentence")
-
-
-def game_start() :
-
-    while True: 
-
-        data,_ = client.recvfrom()
-        champs = pickle.loads(data)
-        Database.game.print_available_champs(pickle.loads(data))
-        player=[]
-
-
-        champ = input("Choose your Champion:"  )
-        if champ in player:
-            print ("You have already chosen that champion")
-        elif champ not in champs:
-            print ("Not a valid champion")
-        else:
-            player.append(champ)
-            if len(player)==2:
-                break
 
 
 
-
-    for i in range(2):
-        client.sendto(player[i].encode(),(("Localhost",5555)))
 
 

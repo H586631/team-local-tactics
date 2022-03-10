@@ -18,7 +18,7 @@ address = (serv, port)
 sock = socket.socket(AF_INET, SOCK_STREAM)
 sockdb = socket.socket(AF_INET, SOCK_STREAM)
 sock.bind((address))
-sockdb.bind((serv, 9998 ))
+# sockdb.bind((serv, 9998 ))
 
 
 
@@ -69,26 +69,29 @@ def starting():
     sock.listen()
     while True:
         conn, address = sock.accept()
+        # conndb, address = sock.accept()
         thread = threading.Thread(target=handler, args=(conn, address))
         print("Server is connected")
         thread.start()
-
-def startdb():
-    sockdb.listen
-    while True:
-        conn, address = sockdb.accept()
-        thread = threading.Thread()
-        print("Server connected with DB")
-        thread.start
-    
-        
+       
         
 
 
 
 def game ():
-    #Here i will implement the game code from serverside
-    print("Game")
+    print("gmae")
+    
+
+    # #Get champions from db
+    # while True:
+    #     sock.send(2048)
+
+    #Send champions
+
+    #Recieve victorious champion
+
+    #Send victorious champion to db
+
 
 
 
@@ -107,8 +110,7 @@ def hist():
 
 print("Server is starting")
 print(f"Server is running on {serv}")
-print("Connect server with db")
-startdb()
+starting()
 
 
 
