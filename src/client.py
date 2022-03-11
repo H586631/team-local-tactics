@@ -22,7 +22,7 @@ def intro() :
     print("            You have three options: "     )
     print("1:        Type 1 to start the game"       )
     print("2:     Type 2 to disconnect from the game")
-    print("3:       Type 3 to view match history    ")
+    print("3:       Type 3 to view match history  (Faulty)  ")
     print("4:       Type 4 to erase match history    ")
     print("")
     

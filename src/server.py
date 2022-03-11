@@ -64,12 +64,12 @@ def handler(conn, address, sockdb, portdb):
         
             
 
-        elif answer == "3":
+        elif answer == "3": #Faulty
             # Hente history fra db
             print("fetching match history")
             sockdb.send("send".encode())
             print("Command sent to Db")
-            print(sockdb.recv(2024).decode())
+            print(sockdb.recv(1024).decode())
             print ("History sent to client")
             # print(histo)
             # conn.send(histo.encode())
