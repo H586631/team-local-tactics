@@ -84,44 +84,11 @@ def print_match_summary(match: Match) -> None:
     # Print the winner
     if red_score > blue_score:
         print('\n[red]Red victory! :grin:')
+        return "red"
     elif red_score < blue_score:
         print('\n[blue]Blue victory! :grin:')
+        return "blue"
     else:
         print('\nDraw :expressionless:')
+        return "draw"
 
-
-def main() -> None:
-
-    print('\n'
-          'Welcome to [bold yellow]Team Local Tactics[/bold yellow]!'
-          '\n'
-          'Each player choose a champion each time.'
-          '\n')
-
-    champions = load_some_champs()
-    print_available_champs(champions)
-    print('\n')
-
-    player1 = []
-    player2 = []
-
-    # Champion selection
-    for _ in range(2):
-        input_champion('Player 1', 'red', champions, player1, player2)
-        input_champion('Player 2', 'blue', champions, player2, player1)
-
-    print('\n')
-
-    # Match
-    match = Match(
-        Team([champions[name] for name in player1]),
-        Team([champions[name] for name in player2])
-    )
-    match.play()
-
-    # Print a summary
-    print_match_summary(match)
-
-
-if __name__ == '__main__':
-    main()
